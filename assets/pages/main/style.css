@@ -1,0 +1,18 @@
+.container {
+  padding: 10px;
+}
+
+.middle-area {
+  width: 90%;
+  margin: 0 auto;
+}
+
+.center-align {
+  text-align: center;
+}
+
+.big-title {
+  font-size: 45px;
+  color: #555555;
+  font-weight: bold;
+}

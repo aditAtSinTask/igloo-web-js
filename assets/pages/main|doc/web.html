@@ -1,0 +1,150 @@
+<div class="container">
+	<div class="middle-area">
+		<div class="big-title center-align">iglooWebJs</div>
+		<div class="border-line-space"></div>
+		<div id="markdown1" class="markdown">
+# Requirement
+Make sure your machine meets the following requirements: 
+
+- NPM
+- Node.js
+
+<div class="border-line-space"></div>
+
+# Documentation
+## Installation & Serve
+iglooWebJs need `http-server` to run the local server, install `http-server` using NPM globally `npm install -g http-server`
+
+Run the iglooWebJs using command `http-server -p {PORT} -c1` this command will using your custom port & set the cache to 1 second, you can remove `-c1` to using default cache ttl (3600 seconds)
+
+## Routing system
+iglooWebJs will use folder name as the pathname or endpoint, for example: if you have directory name `mypage` then we can open the page by endpoint `/mypage` on your host URL and it will be render your `web.html` file.
+
+Make the child segment endpoint by using `|` vertical bar/pipe as the separator, example: directory name is `about|me` then your page can be opened by this endpoint `/about/me`
+
+## File structure
+Create directory according to the endpoint you will create on `/assets/pages`, then create file `web.html` (HTML), `script.js` (Javascript) & `style.css` (CSS) inside your directory.
+
+### 3rd-party JS
+Run 3rd-party Javascript library by add `.js` file on `/assets/js`, for example this markdown using <a href="https://github.com/markedjs/marked" target="_blank">MarkedJS</a> and just add the `marked.min.js` then init the javascript by using `await loadExternalScript('marked.min.js');`
+
+### 3rd-party CSS
+Apply CSS framework by add `.css` file on `/assets/css`, then init the stylesheet by using `await loadExternalStyle('external.css');`
+
+### Load by URL
+We can load the external JS/CSS just by the URL, example: `await loadExternalScript('url:https://externaljs.example/dist/js/externaljs.min.js')` this method can be use on both function.
+
+## Built-in JS Function & Class
+
+### Function
+iglooWebJs have a built-in JS function that can make your work easier, here is a list of functions:
+
+- `getParameterByName(name)` to get URL query string value by parameter `name`, example: if the URL is `https://example.com/pages?abc=def` we can get `abc` query string value by call `getParameterByName('abc')` then the return is **'def'**
+
+- `loadXHR(url, method, send, responseType, requestHeader)` promise function that need await to return the value
+	1. **url: string** - API endpoint URL
+	2. **method: string** - GET, POST, OPTIONS, DELETE, etc
+	3. **send: string | object** - Data send to API according to requestHeader
+	4. **responseType: string** - Response type you need from API, example: json, blob, arraybuffer, document, text, or leave it with blank string
+	5. **requestHeader: object** - Request header send to API, example: 
+```json
+		[
+			{
+				param: 'Content-Type',
+				value: 'application/json'
+			}, 
+			{
+				param: 'Authorization',
+				value: 'Bearer ....'
+			}
+		]
+```
+<div id="responseAPI" class="external-css">
+	<button id="callResponseAPI">Test Call API with loadXHR()</button>
+</div>
+
+- `randomString(length)` get random string with custom length
+<div id="generateRandomString" class="external-css">
+	<button id="callGenerateRandomString">randomString(20)</button>
+</div>
+<br/>
+
+- `displayElementById(id, status)` change display status of html element from it's id. `status` is string **'show'** or **'hide'**
+
+### Class
+- Class `DBStorageService()` used IndexedDB to save the data, here is the code example to use DBStorageService:
+```
+	const dbStorage = new DBStorageService();
+
+	// Set data
+	await dbStorage.set('my-id-1', {data: 'Save to DB'}, 'content');
+
+	// Get data
+	const getDbData = await dbStorage.get('my-id-1', 'content'); // return object with data list
+
+	// Remove data
+	await dbStorage.remove('my-id-1', 'content');
+
+	// How to update data?
+	// Remove the data first, then Set the new data.
+	await dbStorage.remove('my-id-1', 'content');
+	await dbStorage.set('my-id-1', {data: 'Save to DB (Updated)'}, 'content');
+```
+
+<div class="border-line-space"></div>
+
+# Deploy (Server/VPS)
+Make sure your server meets the following requirements: 
+
+- NPM
+- Node.js
+- nginx
+
+1. Login to your server and create `.sh` file, code:
+```
+#!/bin/bash
+sudo http-server {Path to your iglooWebJS} -p {PORT}
+```
+then save the `.sh` file, for example the name is `run-http-server.sh`, 
+and change the file permission with `chmod u+r+x run-http-server.sh`
+
+2. Update crontab with command `crontab -e` so if the server restart it will autorun, if you are not familliar with VIM, 
+you can use nano with command `export VISUAL=nano; crontab -e`
+```
+@reboot setsid {Path to your run-http-server.sh file}
+```
+
+3. Config the nginx as the reverse proxy, example: 
+```
+	server {
+		listen      {SERVER IP}:443;
+		server_name {domain name} www.{domain name};
+		ssl         on;
+		ssl_certificate      {path to your PEM for SSL}.pem;
+		ssl_certificate_key  {path to your KEY for SSL}.key;
+
+		location / {
+				proxy_pass      {SERVER IP}:{http-server PORT};
+				location ~* ^.+\.(jpeg|jpg|png|gif|bmp|ico|svg|tif|tiff|css|js|htm|html|ttf|otf|webp|woff|txt|csv|rtf|doc$
+						root           {Path to your iglooWebJS index.html};
+						expires        max;
+						try_files      $uri @fallback;
+				}
+		}
+
+		location @fallback {
+				proxy_pass      http://{SERVER IP}:{http-server PORT};
+		}
+
+		location ~ /\.ht    {return 404;}
+		location ~ /\.svn/  {return 404;}
+		location ~ /\.git/  {return 404;}
+		location ~ /\.hg/   {return 404;}
+		location ~ /\.bzr/  {return 404;}
+	}
+```
+You can create free SSL with <a href="https://letsencrypt.org" target="_blank">Let's Encrypt</a> API.
+
+		</div>
+	</div>
+</div>
