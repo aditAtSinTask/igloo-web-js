@@ -1,20 +1,25 @@
 * {
-  margin: 0; 
+  margin: 0;
   padding: 0;
   outline: none;
 }
 
-html, body {
+html,
+body {
   margin: 0;
   padding: 0;
   font-family: sans-serif, Arial;
   font-display: swap;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-rendering: optimizeLegibility; 
+  text-rendering: optimizeLegibility;
 }
 
-h1, h2, h3, h4, h5 {
+h1,
+h2,
+h3,
+h4,
+h5 {
   margin-top: 20px;
 }
 
@@ -40,7 +45,7 @@ p {
 }
 
 a {
-  color: #4989A2;
+  color: #4989a2;
   font-weight: bold;
 }
 
@@ -65,12 +70,12 @@ table > tbody > tr > td {
 }
 
 table > tbody > tr:not(:last-child) > td {
-  border-bottom: 1px solid #AAAAAA;
+  border-bottom: 1px solid #aaaaaa;
 }
 
 table > tbody > tr > td:not(:last-child) {
   padding: 5px 15px;
-  border-right: 1px solid #AAAAAA;
+  border-right: 1px solid #aaaaaa;
 }
 
 .float-left {
@@ -152,7 +157,7 @@ table > tbody > tr > td:not(:last-child) {
 pre.wrap {
   line-height: 1.6rem;
   word-wrap: break-word;
-  white-space: pre-wrap; 
+  white-space: pre-wrap;
 }
 
 .markdown h2 {
@@ -163,7 +168,7 @@ pre.wrap {
 .markdown pre {
   margin-top: 5px;
   margin-bottom: 5px;
-  background: #EAEAEA;
+  background: #eaeaea;
   border-radius: 10px;
   padding: 20px;
   overflow-x: auto;
@@ -171,8 +176,8 @@ pre.wrap {
 
 .markdown code {
   padding: 1px 5px;
-  background: #EAEAEA;
-  font-family: 'Courier New', Courier, monospace;
+  background: #eaeaea;
+  font-family: "Courier New", Courier, monospace;
   border-radius: 2px;
   color: #c7254e;
   font-weight: bold;
@@ -187,7 +192,8 @@ pre.wrap {
   margin-bottom: 10px;
 }
 
-ol, ul {
+ol,
+ul {
   margin-left: 20px;
   margin-bottom: 10px;
 }
@@ -214,7 +220,7 @@ li {
   height: 50px;
   border-radius: 50%;
   background: whiteSmoke;
-  box-shadow: 4px -40px 60px 5px #AAAAAA inset;
+  box-shadow: 4px -40px 60px 5px #aaaaaa inset;
 }
 .loader {
   background: linear-gradient(to right, #444444 50%, transparent 50%);
@@ -222,20 +228,24 @@ li {
 }
 .loader:before {
   display: block;
-  content: '';
+  content: "";
   position: relative;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   width: 40px;
   height: 40px;
-  background: #FFFFFF;
+  background: #ffffff;
   border-radius: 50%;
 }
 .spin {
   animation: spin 1s infinite linear;
 }
 @keyframes spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }

@@ -1,5 +1,5 @@
 // Document on ready to handle if HTML page is ready then load JS
-(function(funcName, baseObj) {
+(function (funcName, baseObj) {
   funcName = funcName || "docReady";
   baseObj = baseObj || window;
   var readyList = [];
@@ -17,32 +17,34 @@
   }
 
   function readyStateChange() {
-    if ( document.readyState === "complete" ) {
+    if (document.readyState === "complete") {
       ready();
     }
   }
 
-  baseObj[funcName] = function(callback, context) {
+  baseObj[funcName] = function (callback, context) {
     if (typeof callback !== "function") {
       throw new TypeError("callback for docReady(fn) must be a function");
     }
     if (readyFired) {
-      setTimeout(function() {callback(context);}, 1);
+      setTimeout(function () {
+        callback(context);
+      }, 1);
       return;
     } else {
-      readyList.push({fn: callback, ctx: context});
+      readyList.push({ fn: callback, ctx: context });
     }
     if (document.readyState === "complete") {
       setTimeout(ready, 1);
     } else if (!readyEventHandlersInstalled) {
       if (document.addEventListener) {
-          document.addEventListener("DOMContentLoaded", ready, false);
-          window.addEventListener("load", ready, false);
+        document.addEventListener("DOMContentLoaded", ready, false);
+        window.addEventListener("load", ready, false);
       } else {
-          document.attachEvent("onreadystatechange", readyStateChange);
-          window.attachEvent("onload", ready);
+        document.attachEvent("onreadystatechange", readyStateChange);
+        window.attachEvent("onload", ready);
       }
       readyEventHandlersInstalled = true;
     }
-  }
+  };
 })("docReady", window);

@@ -6,6 +6,6 @@
  */
 
 (async () => {
-  await loadExternalScript('external/external.js');
-  externalFunction('External function loaded');
+  await loadExternalScript("external/external.js");
+  externalFunction("External function loaded");
 })();

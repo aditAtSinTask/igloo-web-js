@@ -1,11 +1,11 @@
 // To get parameter by URL query string name
 function getParameterByName(name, url = window.location.href) {
-  name = name.replace(/[\[\]]/g, '\\$&');
-  var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
-      results = regex.exec(url);
+  name = name.replace(/[\[\]]/g, "\\$&");
+  var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+    results = regex.exec(url);
   if (!results) return null;
-  if (!results[2]) return '';
-  return decodeURIComponent(results[2].replace(/\+/g, ' '));
+  if (!results[2]) return "";
+  return decodeURIComponent(results[2].replace(/\+/g, " "));
 }
 
 // Request API with loadXHR function
@@ -13,11 +13,11 @@ function loadXHR(url, method, send, responseType, requestHeader) {
   return new Promise((resolve) => {
     const xhr = new XMLHttpRequest();
 
-    if (typeof(method) !== 'string') {
-      method = 'GET';
+    if (typeof method !== "string") {
+      method = "GET";
     }
 
-    if (typeof(responseType) !== 'string') {
+    if (typeof responseType !== "string") {
       /** List of valid responseType
        * ---------------------------
         "",
@@ -27,15 +27,15 @@ function loadXHR(url, method, send, responseType, requestHeader) {
         "json",
         "text"
       */
-      responseType = 'json';
+      responseType = "json";
     }
 
-    if (typeof(requestHeader) !== 'object') {
+    if (typeof requestHeader !== "object") {
       requestHeader = [
         {
-          param: 'Content-type',
-          value: 'application/json'
-        }
+          param: "Content-type",
+          value: "application/json",
+        },
       ];
     }
 
@@ -49,7 +49,7 @@ function loadXHR(url, method, send, responseType, requestHeader) {
     xhr.onload = () => {
       resolve(xhr);
     };
-    
+
     if (!!send) {
       xhr.send(send);
     } else {
@@ -60,28 +60,29 @@ function loadXHR(url, method, send, responseType, requestHeader) {
 
 // Change from object to form-urlencoded
 function convertToFormURLEncoded(object) {
-  if (typeof(object) === 'object') {
-    let result = '';
+  if (typeof object === "object") {
+    let result = "";
     object.map((data, index) => {
       if (index > 0) {
-        result = result + '&' + `${data.param}=${data.value}`;
+        result = result + "&" + `${data.param}=${data.value}`;
       } else {
         result = `${data.param}=${data.value}`;
       }
     });
 
     return result;
-  } else {  
-    return 'Param is not object';
+  } else {
+    return "Param is not object";
   }
 }
 
 // Random generator
 function randomString(length) {
-  let result              = '';
-  const characters        = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-  const charactersLength  = characters.length;
-  for ( let i = 0; i < length; i++ ) {
+  let result = "";
+  const characters =
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  const charactersLength = characters.length;
+  for (let i = 0; i < length; i++) {
     result += characters.charAt(Math.floor(Math.random() * charactersLength));
   }
   return result;
@@ -93,9 +94,9 @@ function randomRangeInteger(min, max) {
 
 // Hide/show element
 function displayElementById(id, status) {
-  let displayStatus = 'display: block;';
-  if (status === 'hide') {
-    displayStatus = 'display: none;';
+  let displayStatus = "display: block;";
+  if (status === "hide") {
+    displayStatus = "display: none;";
   }
 
   if (!!document.getElementById(id)) {
@@ -104,9 +105,9 @@ function displayElementById(id, status) {
 }
 
 function displayElementByQuerySelector(selector, status) {
-  let displayStatus = 'display: block;';
-  if (status === 'hide') {
-    displayStatus = 'display: none;';
+  let displayStatus = "display: block;";
+  if (status === "hide") {
+    displayStatus = "display: none;";
   }
 
   if (!!document.querySelector(selector)) {
@@ -116,22 +117,22 @@ function displayElementByQuerySelector(selector, status) {
 
 // Detect space
 function ctypeSpace(input) {
-  return input.replace(/\s/g, '').length > 0;
+  return input.replace(/\s/g, "").length > 0;
 }
 
 // BasicMD
 function convertToBasicMD(input, changeTo) {
   input = input
-    .replace(/^<([^>]+)>/g, '')
-    .replace(/^<br>/g, '')
-    .replace(/<br>/g, '<>')
-    .replace(/(<\/([^>]+)>)/g, '')
-    .replace(/(<([^>]+)>)/g, '<>')
-    .replace(/`([^`]+)`/g, '<code>$1</code>')
+    .replace(/^<([^>]+)>/g, "")
+    .replace(/^<br>/g, "")
+    .replace(/<br>/g, "<>")
+    .replace(/(<\/([^>]+)>)/g, "")
+    .replace(/(<([^>]+)>)/g, "<>")
+    .replace(/`([^`]+)`/g, "<code>$1</code>")
     .replace(/<>/g, changeTo);
 
-  if (!this.ctypeSpace(input.replace(/(<([^>]+)>)/g, ''))) {
-    input = '';
+  if (!this.ctypeSpace(input.replace(/(<([^>]+)>)/g, ""))) {
+    input = "";
   }
 
   return input;
@@ -151,16 +152,16 @@ function loadExternalScript(path) {
   return new Promise((resolve) => {
     const xhr = new XMLHttpRequest();
 
-    xhr.responseType = 'blob';
-    
-    if (path.substr(0, 4).toUpperCase() === 'URL:') {
-      xhr.open('GET', `http${path.substr(8)}`, true);
+    xhr.responseType = "blob";
+
+    if (path.substr(0, 4).toUpperCase() === "URL:") {
+      xhr.open("GET", `http${path.substr(8)}`, true);
     } else {
-      xhr.open('GET', `/assets/js/${path}`, true);
+      xhr.open("GET", `/assets/js/${path}`, true);
     }
-    
+
     xhr.onload = function () {
-      const script = document.createElement('script');
+      const script = document.createElement("script");
       const src = URL.createObjectURL(xhr.response);
       const sourceId = `exjs-${randomString(15)}`;
 
@@ -180,22 +181,22 @@ function loadExternalStyle(path) {
   return new Promise((resolve) => {
     const xhr = new XMLHttpRequest();
 
-    xhr.responseType = 'blob';
-    
-    if (path.substr(0, 4).toUpperCase() === 'URL:') {
-      xhr.open('GET', `http${path.substr(8)}`, true);
+    xhr.responseType = "blob";
+
+    if (path.substr(0, 4).toUpperCase() === "URL:") {
+      xhr.open("GET", `http${path.substr(8)}`, true);
     } else {
-      xhr.open('GET', `/assets/css/${path}`, true);
+      xhr.open("GET", `/assets/css/${path}`, true);
     }
 
     xhr.onload = function () {
-      const style = document.createElement('link');
+      const style = document.createElement("link");
       const src = URL.createObjectURL(xhr.response);
       const sourceId = `excss-${randomString(15)}`;
 
       style.href = src;
-      style.rel = 'stylesheet';
-      style.type = 'text/css';
+      style.rel = "stylesheet";
+      style.type = "text/css";
       style.id = sourceId;
       document.body.appendChild(style);
 
@@ -207,16 +208,15 @@ function loadExternalStyle(path) {
 
 // Storage service
 class StorageService {
-
   static variableStorage;
   dataStorage;
 
   constructor() {
     StorageService.variableStorage = [];
 
-    const defaultName = 'storage-service';
-    let storageName = localStorage.getItem('initStorageService');
-    let storageNameSession = sessionStorage.getItem('initStorageService');
+    const defaultName = "storage-service";
+    let storageName = localStorage.getItem("initStorageService");
+    let storageNameSession = sessionStorage.getItem("initStorageService");
 
     if (storageName !== storageNameSession) {
       let validOne = false;
@@ -248,25 +248,37 @@ class StorageService {
       try {
         thisStorageName = JSON.parse(storageName);
       } catch (_) {
-        console.error('Storage name not found, please define the storage name first');
+        console.error(
+          "Storage name not found, please define the storage name first"
+        );
       }
 
       if (!!thisStorageName.name) {
         this.dataStorage = thisStorageName;
       } else {
-        console.error('Storage name not found, please define the storage name first');
+        console.error(
+          "Storage name not found, please define the storage name first"
+        );
       }
     } else {
-      this.dataStorage = {name: defaultName};
-      localStorage.setItem('initStorageService', JSON.stringify({name: defaultName}));
-      sessionStorage.setItem('initStorageService', JSON.stringify({name: defaultName}));
+      this.dataStorage = { name: defaultName };
+      localStorage.setItem(
+        "initStorageService",
+        JSON.stringify({ name: defaultName })
+      );
+      sessionStorage.setItem(
+        "initStorageService",
+        JSON.stringify({ name: defaultName })
+      );
     }
   }
 
   get(name, testReject) {
     return new Promise((resolve, reject) => {
       if (testReject) {
-        reject(new Error(`Storage rejection test, testReject parameter is true`));
+        reject(
+          new Error(`Storage rejection test, testReject parameter is true`)
+        );
         return;
       }
 
@@ -288,14 +300,19 @@ class StorageService {
   set(name, data, testReject) {
     return new Promise((resolve, reject) => {
       if (testReject) {
-        reject(new Error(`Storage rejection test, testReject parameter is true`));
+        reject(
+          new Error(`Storage rejection test, testReject parameter is true`)
+        );
         return;
       }
 
-      if (typeof data === 'object') {
+      if (typeof data === "object") {
         try {
           const stringifyData = JSON.stringify(data);
-          localStorage.setItem(`${this.dataStorage.name}.${name}`, stringifyData);
+          localStorage.setItem(
+            `${this.dataStorage.name}.${name}`,
+            stringifyData
+          );
           resolve(true);
         } catch (_) {
           console.error(_);
@@ -311,7 +328,9 @@ class StorageService {
   remove(name, testReject) {
     return new Promise((resolve, reject) => {
       if (testReject) {
-        reject(new Error(`Storage rejection test, testReject parameter is true`));
+        reject(
+          new Error(`Storage rejection test, testReject parameter is true`)
+        );
         return;
       }
 
@@ -324,30 +343,29 @@ class StorageService {
       }
     });
   }
-
 }
 
 // IndexedDB Storage
 class DBStorageService {
   constructor() {
     DBStorageService.variableStorage = [];
-    const defaultName = 'selteer-db-storage';
+    const defaultName = "selteer-db-storage";
     const indexedDBAvailable = "indexedDB" in window;
     if (!indexedDBAvailable) {
-      console.error('SeltDBStorage Error: IndexedDB not supported');
+      console.error("SeltDBStorage Error: IndexedDB not supported");
     }
     const openReq = indexedDB.open(defaultName, 1);
     openReq.onupgradeneeded = (e) => {
       const currentDb = e.target.result;
-      if (!currentDb.objectStoreNames.contains('content')) {
-        currentDb.createObjectStore('content', { keyPath: 'id' });
+      if (!currentDb.objectStoreNames.contains("content")) {
+        currentDb.createObjectStore("content", { keyPath: "id" });
       }
     };
     openReq.onsuccess = (e) => {
       this.thisDb = e.target.result;
     };
     openReq.onerror = (e) => {
-      console.error('SeltDBStorage Error: IndexedDB init error: ', e);
+      console.error("SeltDBStorage Error: IndexedDB init error: ", e);
     };
   }
 
@@ -355,10 +373,12 @@ class DBStorageService {
     if (!!this.thisDb) {
       return new Promise((resolve, reject) => {
         if (testReject) {
-          reject(new Error(`Storage rejection test, testReject parameter is true`));
+          reject(
+            new Error(`Storage rejection test, testReject parameter is true`)
+          );
           return;
         }
-        const transaction = this.thisDb.transaction(db, 'readwrite');
+        const transaction = this.thisDb.transaction(db, "readwrite");
         const dataDb = transaction.objectStore(db);
         try {
           const dbGet = dataDb.get(id);
@@ -368,8 +388,7 @@ class DBStorageService {
           dbGet.onerror = (e) => {
             reject(new Error(`SeltDBStorage Error: ${e}`));
           };
-        }
-        catch (e) {
+        } catch (e) {
           reject(new Error(`SeltDBStorage Error: ${e}`));
         }
       });
@@ -386,10 +405,12 @@ class DBStorageService {
     if (!!this.thisDb) {
       return new Promise((resolve, reject) => {
         if (testReject) {
-          reject(new Error(`Storage rejection test, testReject parameter is true`));
+          reject(
+            new Error(`Storage rejection test, testReject parameter is true`)
+          );
           return;
         }
-        const transaction = this.thisDb.transaction(db, 'readwrite');
+        const transaction = this.thisDb.transaction(db, "readwrite");
         const dataDb = transaction.objectStore(db);
         try {
           const dbGet = dataDb.getAll();
@@ -399,8 +420,7 @@ class DBStorageService {
           dbGet.onerror = (e) => {
             reject(new Error(`SeltDBStorage Error: ${e}`));
           };
-        }
-        catch (e) {
+        } catch (e) {
           reject(new Error(`SeltDBStorage Error: ${e}`));
         }
       });
@@ -417,14 +437,16 @@ class DBStorageService {
     if (!!this.thisDb) {
       return new Promise((resolve, reject) => {
         if (testReject) {
-          reject(new Error(`Storage rejection test, testReject parameter is true`));
+          reject(
+            new Error(`Storage rejection test, testReject parameter is true`)
+          );
           return;
         }
         let dataSave = {};
-        if (typeof data !== 'object') {
+        if (typeof data !== "object") {
           data = JSON.parse(data);
         }
-        const transaction = this.thisDb.transaction(db, 'readwrite');
+        const transaction = this.thisDb.transaction(db, "readwrite");
         const dataDb = transaction.objectStore(db);
         const dbGet = dataDb.get(id);
         let addData = [];
@@ -434,10 +456,7 @@ class DBStorageService {
           }
           dataSave = {
             id: id,
-            container: [
-              ...addData,
-              data
-            ]
+            container: [...addData, data],
           };
           const deleteData = dataDb.delete(id);
           deleteData.onsuccess = () => {
@@ -446,15 +465,27 @@ class DBStorageService {
               resolve(true);
             };
             req.onerror = (e) => {
-              reject(new Error(`SeltDBStorage Error: Can't save data to DB, Final process failed\n${e}`));
+              reject(
+                new Error(
+                  `SeltDBStorage Error: Can't save data to DB, Final process failed\n${e}`
+                )
+              );
             };
           };
           deleteData.onerror = (e) => {
-            reject(new Error(`SeltDBStorage Error: Can't get data from DB, [1] Delete process failed\n${e}`));
+            reject(
+              new Error(
+                `SeltDBStorage Error: Can't get data from DB, [1] Delete process failed\n${e}`
+              )
+            );
           };
         };
         dbGet.onerror = (e) => {
-          reject(new Error(`SeltDBStorage Error: Can't get data from DB, [0] Set process failed\n${e}`));
+          reject(
+            new Error(
+              `SeltDBStorage Error: Can't get data from DB, [0] Set process failed\n${e}`
+            )
+          );
         };
       });
     } else {
@@ -470,10 +501,12 @@ class DBStorageService {
     if (!!this.thisDb) {
       return new Promise((resolve, reject) => {
         if (testReject) {
-          reject(new Error(`Storage rejection test, testReject parameter is true`));
+          reject(
+            new Error(`Storage rejection test, testReject parameter is true`)
+          );
           return;
         }
-        const transaction = this.thisDb.transaction(db, 'readwrite');
+        const transaction = this.thisDb.transaction(db, "readwrite");
         const dataDb = transaction.objectStore(db);
         try {
           const deleteData = dataDb.delete(id);
@@ -481,10 +514,11 @@ class DBStorageService {
             resolve(true);
           };
           deleteData.onerror = (e) => {
-            reject(new Error(`SeltDBStorage Error: Can't delete data from DB\n${e}`));
+            reject(
+              new Error(`SeltDBStorage Error: Can't delete data from DB\n${e}`)
+            );
           };
-        }
-        catch (e) {
+        } catch (e) {
           reject(new Error(`SeltDBStorage Error: ${e}`));
         }
       });

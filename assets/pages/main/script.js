@@ -1,2 +1,1 @@
-docReady(async () => {
-});
+docReady(async () => {});
