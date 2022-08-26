@@ -1,3 +1,10 @@
+/**
+ * igloo web JS
+ * ------------
+ * Author: Aditya Wikardiyan - @aditatsintask
+ * Github: https://github.com/aditAtSinTask/igloo-web-js
+ */
+
 // To get parameter by URL query string name
 function getParameterByName(name, url = window.location.href) {
   name = name.replace(/[\[\]]/g, "\\$&");
@@ -120,7 +127,7 @@ function ctypeSpace(input) {
   return input.replace(/\s/g, "").length > 0;
 }
 
-// BasicMD
+// BasicMD - Convert to Basic MarkDown
 function convertToBasicMD(input, changeTo) {
   input = input
     .replace(/^<([^>]+)>/g, "")
@@ -206,7 +213,7 @@ function loadExternalStyle(path) {
   });
 }
 
-// Storage service
+// Storage service - Fork from our Selteer Project (selteer.com/about)
 class StorageService {
   static variableStorage;
   dataStorage;
@@ -345,7 +352,7 @@ class StorageService {
   }
 }
 
-// IndexedDB Storage
+// IndexedDB Storage - Fork from our Selteer Project (selteer.com/about)
 class DBStorageService {
   constructor() {
     DBStorageService.variableStorage = [];

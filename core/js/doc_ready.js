@@ -1,4 +1,21 @@
-// Document on ready to handle if HTML page is ready then load JS
+/**
+ * igloo web JS
+ * ------------
+ * Author: Aditya Wikardiyan - @aditatsintask
+ * Github: https://github.com/aditAtSinTask/igloo-web-js
+ */
+
+/**
+ * Document Ready
+ * --------------
+ * To handle if HTML page is ready then we can load JS.
+ * how to use docReady:
+ *  - Call docReady function on our pages inside /assets/pages/{PAGE_NAME}/script.js
+ *  - We can call docReady like this: 
+ *    - docReady(() => { ... YOUR CODE ... }); 
+ *    - or for async, 
+ *    - docReady(async () => { ... YOUR CODE ... });
+ */
 (function (funcName, baseObj) {
   funcName = funcName || "docReady";
   baseObj = baseObj || window;

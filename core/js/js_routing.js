@@ -1,3 +1,10 @@
+/**
+ * igloo web JS
+ * ------------
+ * Author: Aditya Wikardiyan - @aditatsintask
+ * Github: https://github.com/aditAtSinTask/igloo-web-js
+ */
+
 // JS Routing
 let loopRoute;
 loopRoute = setInterval(() => {

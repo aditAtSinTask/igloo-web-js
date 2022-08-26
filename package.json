@@ -1,6 +1,7 @@
 {
   "scripts": {
-    "web-server": "http-server -p 7898 &"
+    "web-server": "http-server -p 4490 -c1",
+    "web-server-prod": "http-server -p 7898 -gb &"
   },
   "devDependencies": {
     "prettier": "2.4.1"
